@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Synapto - Automatización Inteligente</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,9 +28,11 @@
         /* Style for the floating header */
         #main-header {
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            /* Initial state: transparent background */
+            background-color: transparent;
         }
         #main-header.scrolled {
-            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white on scroll */
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
@@ -38,12 +40,13 @@
         .navbar-logo {
             height: 2.5rem; /* Adjust height as needed (h-10 in Tailwind) */
             width: auto; /* Maintain aspect ratio */
+            transition: opacity 0.3s ease; /* Optional: add transition for smoother logo swap */
         }
         /* Hero background image and overlay */
         .hero-background {
             position: relative; /* Needed for absolute positioning of overlay */
-            /* Updated background image path */
-            background-image: url('hero-background.jpg'); /* Placeholder - replace with your actual image */
+            /* Updated background image path and extension */
+            background-image: url('assets/images/hero-background.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -66,6 +69,30 @@
              height: 2rem; /* Slightly smaller than navbar logo (h-8) */
              width: auto;
         }
+        /* Initial Nav Link Color */
+        #main-nav a {
+            color: #ffffff; /* White text initially */
+            transition: color 0.3s ease;
+        }
+         /* Nav Link Color when Scrolled */
+        #main-header.scrolled #main-nav a {
+            color: #4b5563; /* gray-600 */
+        }
+        #main-header.scrolled #main-nav a:hover {
+             color: #1f2937; /* gray-900 */
+        }
+         /* Initial Mobile Menu Button Color */
+         #mobile-menu-btn {
+             color: #ffffff; /* White icon initially */
+             transition: color 0.3s ease;
+         }
+         /* Mobile Menu Button Color when Scrolled */
+         #main-header.scrolled #mobile-menu-btn {
+             color: #4b5563; /* gray-600 */
+         }
+         #main-header.scrolled #mobile-menu-btn:hover {
+             color: #1f2937; /* gray-900 */
+         }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
@@ -73,16 +100,16 @@
     <header id="main-header" class="fixed top-0 left-0 right-0 z-50 py-4">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <a href="#" class="flex items-center">
-                <img src="Logo sin fondo.png" alt="Synapto Logo" class="navbar-logo">
+                <img id="navbar-logo-img" src="assets/images/logo-blanco.png" alt="Synapto Logo" class="navbar-logo">
             </a>
-            <nav class="hidden md:flex space-x-6">
-                <a href="#about" class="text-gray-600 hover:text-gray-900 transition duration-200">Nosotros</a>
-                <a href="#services" class="text-gray-600 hover:text-gray-900 transition duration-200">Servicios</a>
-                <a href="#process" class="text-gray-600 hover:text-gray-900 transition duration-200">Proceso</a>
-                <a href="#tech" class="text-gray-600 hover:text-gray-900 transition duration-200">Tecnología</a>
-                <a href="#contact" class="text-gray-600 hover:text-gray-900 transition duration-200">Contacto</a>
+            <nav id="main-nav" class="hidden md:flex space-x-6">
+                <a href="#about" class="hover:opacity-80 transition duration-200">Nosotros</a>
+                <a href="#services" class="hover:opacity-80 transition duration-200">Servicios</a>
+                <a href="#process" class="hover:opacity-80 transition duration-200">Proceso</a>
+                <a href="#tech" class="hover:opacity-80 transition duration-200">Tecnología</a>
+                <a href="#contact" class="hover:opacity-80 transition duration-200">Contacto</a>
             </nav>
-            <button class="md:hidden text-gray-600 hover:text-gray-900">
+            <button id="mobile-menu-btn" class="md:hidden hover:opacity-80">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
             </button>
         </div>
@@ -216,7 +243,7 @@
                 <p class="text-lg text-gray-700 mb-8">
                     Escribinos a: <a href="mailto:tech@synapto.cr" class="text-indigo-600 hover:text-indigo-800 font-medium">tech@synapto.cr</a>
                 </p>
-                <a href="https://calendly.com/your-link" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 transform hover:-translate-y-1">
+                <a href="http://tiny.cc/synapto-1-1" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 transform hover:-translate-y-1">
                     Agendar una Consulta
                 </a>
                  </div>
@@ -225,7 +252,8 @@
 
     <footer class="bg-gray-800 text-gray-400 py-10">
         <div class="container mx-auto px-6 text-center">
-            <img src="logo-blanco.png" alt="Synapto Logo Blanco"
+            <img src="assets/images/logo-blanco.png"
+                 alt="Synapto Logo Blanco"
                  class="footer-logo mx-auto mb-6 block">
 
             <p>&copy; <span id="current-year"></span> Synapto. Todos los derechos reservados.</p>
@@ -243,19 +271,42 @@
         // Set current year in footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Add scroll effect to header
+        // --- Header Scroll Logic ---
         const header = document.getElementById('main-header');
+        const logoImg = document.getElementById('navbar-logo-img');
+        // Updated JS paths
+        const whiteLogoSrc = 'assets/images/logo-blanco.png'; // Path to white logo
+        const darkLogoSrc = 'assets/images/logo.png';       // Path to dark logo
+        const scrollThreshold = 50; // Pixels to scroll before changing header/logo
+
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) { // Add 'scrolled' class after 50px scroll
+            // Use absolute path for comparison to avoid potential issues
+            const currentBaseSrc = new URL(logoImg.src, window.location.href).pathname;
+            const whiteBaseSrc = new URL(whiteLogoSrc, window.location.href).pathname;
+            const darkBaseSrc = new URL(darkLogoSrc, window.location.href).pathname;
+
+            if (window.scrollY > scrollThreshold) {
+                // Add scrolled class for background/styles
                 header.classList.add('scrolled');
+                // Change logo to dark version if it's not already set
+                if (currentBaseSrc !== darkBaseSrc) {
+                    logoImg.src = darkLogoSrc;
+                }
             } else {
+                // Remove scrolled class
                 header.classList.remove('scrolled');
+                // Change logo back to white version if it's not already set
+                if (currentBaseSrc !== whiteBaseSrc) {
+                    logoImg.src = whiteLogoSrc;
+                }
             }
         });
+        // --- End Header Scroll Logic ---
+
 
         // --- Mobile Menu Functionality ---
-        const mobileMenuButton = document.querySelector('header button.md\\:hidden'); // More specific selector
-        const nav = document.querySelector('nav.hidden.md\\:flex'); // Select the nav menu
+        const mobileMenuButton = document.getElementById('mobile-menu-btn');
+        const nav = document.getElementById('main-nav'); // Use ID added to nav
         let mobileMenuContainer = null; // Initialize container variable
 
         if (mobileMenuButton && nav) { // Check if elements exist
@@ -265,8 +316,9 @@
                 mobileMenuContainer = document.createElement('div');
                 mobileMenuContainer.classList.add('mobile-menu-container', 'md:hidden', 'absolute', 'top-full', 'left-0', 'right-0', 'bg-white', 'shadow-lg', 'py-4', 'px-6', 'hidden'); // Initially hidden
                 mobileMenuContainer.innerHTML = nav.innerHTML; // Copy nav links
-                 // Style the links for mobile view
+                 // Style the links for mobile view (dark text on white background)
                 mobileMenuContainer.querySelectorAll('a').forEach(link => {
+                    link.classList.remove('text-white'); // Remove initial white color
                     link.classList.add('block', 'py-2', 'text-gray-700', 'hover:text-indigo-600');
                 });
                 header.appendChild(mobileMenuContainer); // Add it to the header
